@@ -19,5 +19,18 @@ If `dkr` recognizes known aliases, it would act accordingly as shown in the `dkr
 ## Current state
 This software is not ready for usage. It's an early stage. Please wait until 1.0.0.
 
+## How to install?
+### MacOS via homebrew
+First, add ohdkr tap 
+```bash
+brew tap ohdkr/homebrew-dkr-osx
+```
+
+Then, install `dkr`
+```bash
+brew install dkr
+```
+
+
 ## How to contribute?
 Feel free to post any Issue here on github as bug report, comment or suggestion. Pull requests are always welcome.
