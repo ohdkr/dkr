@@ -1,14 +1,16 @@
 package main
 
 import (
+	. "dkr/commands"
 	"flag"
 	"fmt"
 	"os"
 )
 
-func main() {
-	const version = "0.0.1"
+var version = "0.0.1"
 
+func main() {
+	// Prepares app description.
 	var Usage = func() {
 		println("Welcome to docker CLi tool.")
 		fmt.Fprintf(flag.CommandLine.Output(), "Usage of %s:\n", os.Args[0])
@@ -16,11 +18,14 @@ func main() {
 	}
 	flag.Usage = Usage
 
-	var showVersion = flag.Bool("version", false, "Prints version")
+	showVersion := flag.Bool("version", false, "Prints version")
 	flag.Parse()
 
 	if *showVersion {
 		println(version)
 		os.Exit(0)
 	}
+
+	// No known command found, proceeds as a raw proxy.
+	Proxy()
 }
