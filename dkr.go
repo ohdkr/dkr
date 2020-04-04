@@ -22,10 +22,14 @@ func main() {
 	flag.Parse()
 
 	if *showVersion {
-		println(version)
+		fmt.Printf("Dkr version: %s\n", version)
+		ExecCommand("docker", []string{"--version"})
+		ExecCommand("docker-compose", []string{"--version"})
 		os.Exit(0)
 	}
 
+	// Check if passed known aliases. If yes, this will exit inside.
+	DetectAndCallAliases()
 	// No known command found, proceeds as a raw proxy.
 	Proxy()
 }

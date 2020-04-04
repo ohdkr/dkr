@@ -1,9 +1,8 @@
-package proxy
+package commands
 
 import (
 	"fmt"
 	"os"
-	"os/exec"
 )
 
 // Raw proxy to docker or docker-compose.
@@ -28,9 +27,5 @@ func Proxy() {
 	}
 
 	fmt.Printf("Calling %s with %v\n", application, args)
-	cmd := exec.Command(application, args...)
-	cmd.Stderr = os.Stderr
-	cmd.Stdout = os.Stdout
-	cmd.Stdin = os.Stdin
-	cmd.Run()
+	ExecCommand(application, args)
 }
