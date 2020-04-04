@@ -1,4 +1,4 @@
-package dkr
+package main
 
 import (
 	. "dkr/commands"
