@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased] (0.1.0)
 ## Added
 - [dkr sh CONTAINER_NAME](./README.md#sh) command.
+- [dkr bash CONTAINER_NAME](./README.md#bash) command.
 
 ## Changed
 - A `--version` flag now prints version of `dkr`, `docker` and `docker-compose`.

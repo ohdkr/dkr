@@ -12,9 +12,14 @@ var version = "0.1.0"
 func main() {
 	// Prepares app description.
 	var Usage = func() {
-		println("Welcome to docker CLi tool.")
+		println("Welcome to docker CLi tool.\r")
+
 		fmt.Fprintf(flag.CommandLine.Output(), "Usage of %s:\n", os.Args[0])
 		flag.PrintDefaults()
+		// Subcommands
+		println("aliases:\r")
+		println("  sh CONTAINER_NAME - Jumps into running container sh.\r")
+		println("  bash CONTAINER_NAME - Jumps into running container bash.\r")
 	}
 	flag.Usage = Usage
 

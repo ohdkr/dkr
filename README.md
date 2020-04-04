@@ -17,13 +17,21 @@ Everything that is passed after `dkr`, what is not recognised as a superset comm
 If `dkr` recognizes known aliases, it would act accordingly as shown in the `dkr sh CONTAINER_NAME` example.
 
 ## Aliases
-### SH
-```bash
+### sh
+```shell script
 dkr sh CONTAINER_NAME
 ```
 Alias to
-```bash
+```shell script
 docker exec -it CONTAINER_NAME /bin/sh
+```
+### bash
+```shell script
+dkr bash CONTAINER_NAME
+```
+Alias to
+```shell script
+docker exec -it CONTAINER_NAME /bin/bash
 ```
 
 ## Current state
@@ -32,12 +40,12 @@ This software is not ready for usage. It's an early stage. Please wait until 1.0
 ## How to install?
 ### MacOS via homebrew
 First, add ohdkr tap 
-```bash
+```shell script
 brew tap ohdkr/homebrew-dkr-osx
 ```
 
 Then, install `dkr`
-```bash
+```shell script
 brew install dkr
 ```
 

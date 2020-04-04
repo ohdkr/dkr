@@ -5,13 +5,13 @@ import (
 	"os"
 )
 
-func handleSH(shArgs []string) {
+func handleJumpIntoTerminal(mode string, shArgs []string) {
 	if len(shArgs) == 0 {
 		fmt.Printf("Please provide container name. E.x dkr sh SOME_NAME\n")
 		os.Exit(1)
 	}
 	container := shArgs[0]
-	ExecCommand("docker", []string{"exec", "-it", container, "/bin/sh"})
+	ExecCommand("docker", []string{"exec", "-it", container, mode})
 	os.Exit(0)
 }
 
@@ -33,6 +33,8 @@ func DetectAndCallAliases() {
 
 	switch alias {
 	case "sh":
-		handleSH(rest)
+		handleJumpIntoTerminal("/bin/sh", rest)
+	case "bash":
+		handleJumpIntoTerminal("/bin/bash", rest)
 	}
 }
