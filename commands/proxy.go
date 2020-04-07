@@ -7,22 +7,17 @@ import (
 
 // Raw proxy to docker or docker-compose.
 func Proxy() {
-	var args []string
-	var secondArg string
-
+	var args []string = nil
 	application := "docker"
+	rawArgs := os.Args
 
-	if len(os.Args) > 1 {
-		args = os.Args[1:]
-		secondArg = os.Args[1]
-	}
-
-	if secondArg == "c" {
-		application = "docker-compose"
-		if len(os.Args) > 2 {
-			args = os.Args[2:]
-		} else {
-			args = nil
+	if len(rawArgs) > 1 {
+		args = rawArgs[1:]
+		if rawArgs[1] == "c" {
+			application = "docker-compose"
+			if len(rawArgs) > 2 {
+				args = rawArgs[2:]
+			}
 		}
 	}
 
