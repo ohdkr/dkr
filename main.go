@@ -13,7 +13,7 @@ var version = "0.1.0"
 func main() {
 	// Prepares app description.
 	var Usage = func() {
-		fmt.Println("Welcome to docker CLi tool.\r")
+		fmt.Println("Welcome to docker CLI tool.\r")
 
 		_, err := fmt.Fprintf(flag.CommandLine.Output(), "Usage of %s:\n", os.Args[0])
 		if err != nil {
