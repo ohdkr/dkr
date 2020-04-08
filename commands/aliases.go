@@ -21,7 +21,11 @@ func handleKillAll() {
 
 	idsArr := strings.Split(strings.Trim(ids, "\n"), "\n")
 
-	print(len(idsArr))
+	if idsArr[0] == "" {
+		fmt.Print("There's nothing to kill.")
+		os.Exit(1)
+	}
+
 	for _, element := range idsArr {
 		ExecCommand("docker", []string{"kill", element})
 	}
