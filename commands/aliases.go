@@ -3,6 +3,7 @@ package commands
 import (
 	"fmt"
 	"os"
+	"strings"
 )
 
 func handleJumpIntoTerminal(mode string, shArgs []string) {
@@ -12,6 +13,19 @@ func handleJumpIntoTerminal(mode string, shArgs []string) {
 	}
 	container := shArgs[0]
 	ExecCommand("docker", []string{"exec", "-it", container, mode})
+	os.Exit(0)
+}
+
+func handleKillAll() {
+	ids := string(ReturnCommand("docker", []string{"ps", "-q"}))
+
+	idsArr := strings.Split(strings.Trim(ids, "\n"), "\n")
+
+	print(len(idsArr))
+	for _, element := range idsArr {
+		ExecCommand("docker", []string{"kill", element})
+	}
+
 	os.Exit(0)
 }
 
@@ -36,5 +50,7 @@ func DetectAndCallAliases() {
 		handleJumpIntoTerminal("/bin/sh", rest)
 	case "bash":
 		handleJumpIntoTerminal("/bin/bash", rest)
+	case "killall":
+		handleKillAll()
 	}
 }
