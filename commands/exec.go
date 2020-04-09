@@ -28,3 +28,7 @@ func ExecCommand(application string, args []string) {
 		fmt.Printf("There was an error when trying to execute the command, %s", err)
 	}
 }
+
+func Prexit(code int) {
+	os.Exit(code)
+}

@@ -6,33 +6,35 @@ import (
 	"strings"
 )
 
-func handleJumpIntoTerminal(mode string, shArgs []string) {
+var prexiter = Prexit
+
+func handleJumpIntoTerminal(mode string, shArgs []string) int {
 	if len(shArgs) == 0 {
 		fmt.Printf("Please provide container name. E.x dkr sh SOME_NAME\n")
-		os.Exit(1)
+		return 1
 	}
 	container := shArgs[0]
 	ExecCommand("docker", []string{"exec", "-it", container, mode})
-	os.Exit(0)
+	return 0
 }
 
-func handleKillAll() {
+func handleKillAll() int {
 	ids := string(ReturnCommand("docker", []string{"ps", "-q"}))
 	idsArr := strings.Split(strings.Trim(ids, "\n"), "\n")
 
 	if idsArr[0] == "" {
 		fmt.Print("There's nothing to kill.")
-		os.Exit(0)
+		return 0
 	}
 
 	for _, element := range idsArr {
 		ExecCommand("docker", []string{"kill", element})
 	}
 
-	os.Exit(0)
+	return 0
 }
 
-func handleCleanup() {
+func handleCleanup() int {
 	ids := string(ReturnCommand("docker", []string{"ps", "-aq"}))
 	idsArr := strings.Split(strings.Trim(ids, "\n"), "\n")
 
@@ -54,15 +56,15 @@ func handleCleanup() {
 	} else {
 		fmt.Print("No volumes to remove.\n")
 	}
-	os.Exit(0)
+	return 0
 }
 
-func DetectAndCallAliases() {
+func DetectAndCallAliases() (bool, int) {
 	// No arguments after `dkr` or `dkr c` called
 	if len(os.Args) == 1 ||
 		len(os.Args) >= 2 &&
 			os.Args[1] == "c" {
-		return
+		return false, 0
 	}
 
 	args := os.Args[1:]
@@ -75,12 +77,14 @@ func DetectAndCallAliases() {
 
 	switch alias {
 	case "sh":
-		handleJumpIntoTerminal("/bin/sh", rest)
+		return true, handleJumpIntoTerminal("/bin/sh", rest)
 	case "bash":
-		handleJumpIntoTerminal("/bin/bash", rest)
+		return true, handleJumpIntoTerminal("/bin/bash", rest)
 	case "killall":
-		handleKillAll()
+		return true, handleKillAll()
 	case "cleanup":
-		handleCleanup()
+		return true, handleCleanup()
 	}
+
+	return false, 0
 }

@@ -9,6 +9,8 @@ import (
 )
 
 var version = "0.1.0"
+var execCommand = ExecCommand
+var prexiter = Prexit
 
 func main() {
 	// Prepares app description.
@@ -35,13 +37,19 @@ func main() {
 
 	if *showVersion {
 		fmt.Printf("Dkr version: %s\n", version)
-		ExecCommand("docker", []string{"--version"})
-		ExecCommand("docker-compose", []string{"--version"})
-		os.Exit(0)
+		execCommand("docker", []string{"--version"})
+		execCommand("docker-compose", []string{"--version"})
+		prexiter(0)
+		return
 	}
 
 	// Check if passed known aliases. If yes, this will exit inside.
-	DetectAndCallAliases()
+	shouldFinish, code := DetectAndCallAliases()
+	if shouldFinish {
+		prexiter(code)
+		return
+	}
 	// No known command found, proceeds as a raw proxy.
 	Proxy()
+	prexiter(0)
 }
