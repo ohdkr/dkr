@@ -2,7 +2,6 @@ package commands
 
 import (
 	"fmt"
-	"os"
 	"strings"
 )
 
@@ -59,15 +58,15 @@ func handleCleanup() int {
 	return 0
 }
 
-func DetectAndCallAliases() (bool, int) {
+func DetectAndCallAliases(osArgs []string) (bool, int) {
 	// No arguments after `dkr` or `dkr c` called
-	if len(os.Args) == 1 ||
-		len(os.Args) >= 2 &&
-			os.Args[1] == "c" {
+	if len(osArgs) == 1 ||
+		len(osArgs) >= 2 &&
+			osArgs[1] == "c" {
 		return false, 0
 	}
 
-	args := os.Args[1:]
+	args := osArgs[1:]
 	alias := args[0]
 	var rest []string
 

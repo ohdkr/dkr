@@ -1,16 +1,13 @@
 package main
 
 import (
+	. "dkr/router"
 	"flag"
 	"fmt"
 	"os"
-
-	. "dkr/commands"
 )
 
-var version = "0.1.0"
-var execCommand = ExecCommand
-var prexiter = Prexit
+var router = Route
 
 func main() {
 	// Prepares app description.
@@ -35,21 +32,5 @@ func main() {
 	showVersion := flag.Bool("version", false, "Prints version")
 	flag.Parse()
 
-	if *showVersion {
-		fmt.Printf("Dkr version: %s\n", version)
-		execCommand("docker", []string{"--version"})
-		execCommand("docker-compose", []string{"--version"})
-		prexiter(0)
-		return
-	}
-
-	// Check if passed known aliases. If yes, this will exit inside.
-	shouldFinish, code := DetectAndCallAliases()
-	if shouldFinish {
-		prexiter(code)
-		return
-	}
-	// No known command found, proceeds as a raw proxy.
-	Proxy()
-	prexiter(0)
+	router(*showVersion, os.Args)
 }
