@@ -1,14 +1,13 @@
 package main
 
 import (
+	. "dkr/router"
 	"flag"
 	"fmt"
 	"os"
-
-	. "dkr/commands"
 )
 
-var version = "0.1.0"
+var router = Route
 
 func main() {
 	// Prepares app description.
@@ -25,21 +24,13 @@ func main() {
 		fmt.Println("aliases:\r")
 		fmt.Println("  sh CONTAINER_NAME - Jumps into running container sh.\r")
 		fmt.Println("  bash CONTAINER_NAME - Jumps into running container bash.\r")
+		fmt.Println("  killall - Kills all active container. Equivalent: docker kill $(docker ps -q).\r")
+		fmt.Println("  cleanup - Removes all containers and volumes. Equivalent: docker rm $(docker ps -a -q) & docker rmi $(docker images -q).\r")
 	}
 	flag.Usage = Usage
 
 	showVersion := flag.Bool("version", false, "Prints version")
 	flag.Parse()
 
-	if *showVersion {
-		fmt.Printf("Dkr version: %s\n", version)
-		ExecCommand("docker", []string{"--version"})
-		ExecCommand("docker-compose", []string{"--version"})
-		os.Exit(0)
-	}
-
-	// Check if passed known aliases. If yes, this will exit inside.
-	DetectAndCallAliases()
-	// No known command found, proceeds as a raw proxy.
-	Proxy()
+	router(*showVersion, os.Args)
 }

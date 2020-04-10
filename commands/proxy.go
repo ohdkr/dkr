@@ -2,14 +2,13 @@ package commands
 
 import (
 	"fmt"
-	"os"
 )
 
 // Raw proxy to docker or docker-compose.
-func Proxy() {
+func Proxy(osArgs []string) {
 	var args []string = nil
 	application := "docker"
-	rawArgs := os.Args
+	rawArgs := osArgs
 
 	// Not called just `dkr`
 	if len(rawArgs) > 1 {
