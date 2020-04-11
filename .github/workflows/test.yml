@@ -2,7 +2,7 @@ name: Test
 on: [push, pull_request]
 jobs:
   test:
-    name: Test with Coverage
+    name: Smoke test
     runs-on: ubuntu-latest
     steps:
       - name: Set up Go
@@ -14,12 +14,6 @@ jobs:
       - name: Install dependencies
         run: |
           go mod download
-      - name: Run Unit tests
+      - name: Run smoke test
         run: |
-          go test -race -covermode atomic -coverprofile=profile.cov ./...
-      - name: Send coverage
-        env:
-          COVERALLS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          GO111MODULE=off go get github.com/mattn/goveralls
-          $(go env GOPATH)/bin/goveralls -coverprofile=profile.cov -service=github
+          go test -failfast

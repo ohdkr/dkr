@@ -14,7 +14,7 @@ func main() {
 	var Usage = func() {
 		fmt.Println("Welcome to docker CLI tool.\r")
 
-		_, err := fmt.Fprintf(flag.CommandLine.Output(), "Usage of %s:\n", os.Args[0])
+		_, err := fmt.Fprintf(flag.CommandLine.Output(), "Usage of dkr:\n")
 		if err != nil {
 			fmt.Printf("Error when trying to format the output string, %s", err)
 		}

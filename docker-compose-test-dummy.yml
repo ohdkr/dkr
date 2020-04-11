@@ -1,0 +1,6 @@
+version: "3"
+services:
+  container1:
+    image: alpine
+    container_name: "test-container-1"
+    command: "tail -f /dev/null"
