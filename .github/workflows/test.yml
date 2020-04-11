@@ -2,7 +2,7 @@ name: Test
 on: [push, pull_request]
 jobs:
   test:
-    name: Test with Coverage
+    name: Smoke test
     runs-on: ubuntu-latest
     steps:
       - name: Set up Go
@@ -14,6 +14,6 @@ jobs:
       - name: Install dependencies
         run: |
           go mod download
-      - name: Run Unit tests
+      - name: Run smoke test
         run: |
           go test
