@@ -9,9 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## Added
 - `dkr cleanup` [#4](https://github.com/ohdkr/dkr/pull/4).
 - `dkr killall` [#4](https://github.com/ohdkr/dkr/pull/4).
+- `dkr nuke` [#4](https://github.com/ohdkr/dkr/pull/10).
+
 ## Changed
-- Code refactoring [#3](https://github.com/ohdkr/dkr/pull/3).
-- Added unit tests with GH actions integration [#4](https://github.com/ohdkr/dkr/pull/4)
+- Code refactoring, added smoke tests [#3](https://github.com/ohdkr/dkr/pull/3), [#9](https://github.com/ohdkr/dkr/pull/9).
 
 ## [v0.1.0](https://github.com/ohdkr/dkr/releases/tag/v0.1.0)
 ## Added
