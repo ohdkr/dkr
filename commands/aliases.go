@@ -5,8 +5,6 @@ import (
 	"strings"
 )
 
-var prexiter = Prexit
-
 func handleJumpIntoTerminal(mode string, shArgs []string) int {
 	if len(shArgs) == 0 {
 		fmt.Printf("Please provide container name. E.x dkr sh SOME_NAME\n")

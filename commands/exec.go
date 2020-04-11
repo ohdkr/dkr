@@ -7,10 +7,8 @@ import (
 	"os/exec"
 )
 
-var command = exec.Command
-
 func ReturnCommand(application string, args []string) []byte {
-	cmd := command(application, args...)
+	cmd := exec.Command(application, args...)
 	out, err := cmd.Output()
 	if err != nil {
 		log.Fatal(err)
@@ -20,7 +18,7 @@ func ReturnCommand(application string, args []string) []byte {
 }
 
 func ExecCommand(application string, args []string) {
-	cmd := command(application, args...)
+	cmd := exec.Command(application, args...)
 	cmd.Stderr = os.Stderr
 	cmd.Stdout = os.Stdout
 	cmd.Stdin = os.Stdin
@@ -28,8 +26,4 @@ func ExecCommand(application string, args []string) {
 	if err != nil {
 		fmt.Printf("There was an error when trying to execute the command, %s", err)
 	}
-}
-
-func Prexit(code int) {
-	os.Exit(code)
 }
