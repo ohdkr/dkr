@@ -16,4 +16,4 @@ jobs:
           go mod download
       - name: Run smoke test
         run: |
-          go test
+          go test -failfast
