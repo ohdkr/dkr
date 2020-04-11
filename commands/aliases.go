@@ -20,7 +20,7 @@ func handleKillAll() int {
 	idsArr := strings.Split(strings.Trim(ids, "\n"), "\n")
 
 	if idsArr[0] == "" {
-		fmt.Print("There's nothing to kill.")
+		fmt.Print("There's nothing to kill.\n")
 		return 0
 	}
 
