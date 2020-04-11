@@ -36,20 +36,20 @@ var _ = Describe("Dkr", func() {
 	Context("Helpers", func() {
 		It("dkr exits with status code 0", func() {
 			session = runMain(mainPath, []string{})
-			session.Wait()
+			session.Wait(10000)
 			Eventually(session).Should(gexec.Exit(0))
 		})
 
 		It("calls dkr with no command", func() {
 			session = runMain(mainPath, []string{})
-			session.Wait()
+			session.Wait(10000)
 			Eventually(session).Should(gbytes.Say("Calling docker with \\[\\]"))
 			Eventually(session).Should(gexec.Exit(0))
 		})
 
 		It("calls dkr --version", func() {
 			session = runMain(mainPath, []string{"--version"})
-			session.Wait()
+			session.Wait(10000)
 			Eventually(session).Should(gbytes.Say("Dkr version"))
 			Eventually(session).Should(gbytes.Say("Docker version"))
 			Eventually(session).Should(gbytes.Say("docker-compose version"))
