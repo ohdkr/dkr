@@ -36,21 +36,34 @@ var _ = Describe("Dkr", func() {
 	Context("Helpers", func() {
 		It("dkr exits with status code 0", func() {
 			session = runMain(mainPath, []string{})
+			session.Wait()
 			Eventually(session).Should(gexec.Exit(0))
 		})
 
 		It("calls dkr with no command", func() {
 			session = runMain(mainPath, []string{})
+			session.Wait()
 			Eventually(session).Should(gbytes.Say("Calling docker with \\[\\]"))
 			Eventually(session).Should(gexec.Exit(0))
 		})
 
 		It("calls dkr --version", func() {
 			session = runMain(mainPath, []string{"--version"})
+			session.Wait()
 			Eventually(session).Should(gbytes.Say("Dkr version"))
 			Eventually(session).Should(gbytes.Say("Docker version"))
 			Eventually(session).Should(gbytes.Say("docker-compose version"))
 			Eventually(session).Should(gexec.Exit(0))
+		})
+
+		It("calls dkr --help", func() {
+			session = runMain(mainPath, []string{"--help"})
+			session.Wait()
+			Eventually(session).Should(gbytes.Say("aliases"))
+			Eventually(session).Should(gbytes.Say("sh"))
+			Eventually(session).Should(gbytes.Say("bash"))
+			Eventually(session).Should(gbytes.Say("killall"))
+			Eventually(session).Should(gbytes.Say("cleanup"))
 		})
 	})
 
@@ -107,6 +120,25 @@ var _ = Describe("Dkr", func() {
 			session = runMain(mainPath, []string{"ps"})
 			session.Wait()
 			Consistently(session).ShouldNot(gbytes.Say("test-container-1"))
+		})
+
+		It("spins up", func() {
+			session = spinup()
+			session.Wait(60000)
+		})
+
+		It("checks is spin up worked", func() {
+			session = runMain(mainPath, []string{"ps"})
+			session.Wait()
+			Eventually(session).Should(gbytes.Say("test-container-1"))
+		})
+
+		It("calls cleaup", func() {
+			session = runMain(mainPath, []string{"cleanup"})
+			session.Wait(60000)
+			Eventually(session).Should(gbytes.Say("Untagged"))
+			Eventually(session).Should(gbytes.Say("Deleted"))
+
 		})
 	})
 })

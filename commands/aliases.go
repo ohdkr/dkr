@@ -34,6 +34,7 @@ func handleKillAll() int {
 }
 
 func handleCleanup() int {
+	handleKillAll()
 	ids := string(ReturnCommand("docker", []string{"ps", "-aq"}))
 	idsArr := strings.Split(strings.Trim(ids, "\n"), "\n")
 
