@@ -64,6 +64,7 @@ var _ = Describe("Dkr", func() {
 			Eventually(session).Should(gbytes.Say("bash"))
 			Eventually(session).Should(gbytes.Say("killall"))
 			Eventually(session).Should(gbytes.Say("cleanup"))
+			Eventually(session).Should(gbytes.Say("nuke"))
 		})
 	})
 
@@ -138,7 +139,23 @@ var _ = Describe("Dkr", func() {
 			session.Wait(60000)
 			Eventually(session).Should(gbytes.Say("Untagged"))
 			Eventually(session).Should(gbytes.Say("Deleted"))
+		})
 
+		It("spins up", func() {
+			session = spinup()
+			session.Wait(60000)
+		})
+
+		It("checks is spin up worked", func() {
+			session = runMain(mainPath, []string{"ps"})
+			session.Wait()
+			Eventually(session).Should(gbytes.Say("test-container-1"))
+		})
+
+		It("callas nuke", func() {
+			session = runMain(mainPath, []string{"nuke"})
+			session.Wait(60000)
+			Eventually(session).Should(gbytes.Say("reclaimed space"))
 		})
 	})
 })

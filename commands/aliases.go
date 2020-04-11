@@ -20,7 +20,7 @@ func handleKillAll() int {
 	idsArr := strings.Split(strings.Trim(ids, "\n"), "\n")
 
 	if idsArr[0] == "" {
-		fmt.Print("There's nothing to kill.")
+		fmt.Print("There's nothing to kill.\n")
 		return 0
 	}
 
@@ -57,6 +57,13 @@ func handleCleanup() int {
 	return 0
 }
 
+func handleNuke() int {
+	handleCleanup()
+	ExecCommand("docker", []string{"system", "prune", "--volumes", "-f"})
+
+	return 0
+}
+
 func DetectAndCallAliases(osArgs []string) (bool, int) {
 	// No arguments after `dkr` or `dkr c` called
 	if len(osArgs) == 1 ||
@@ -82,6 +89,8 @@ func DetectAndCallAliases(osArgs []string) (bool, int) {
 		return true, handleKillAll()
 	case "cleanup":
 		return true, handleCleanup()
+	case "nuke":
+		return true, handleNuke()
 	}
 
 	return false, 0
