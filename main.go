@@ -26,6 +26,7 @@ func main() {
 		fmt.Println("  bash CONTAINER_NAME - Jumps into running container bash.\r")
 		fmt.Println("  killall - Kills all active container. Equivalent: docker kill $(docker ps -q).\r")
 		fmt.Println("  cleanup - Removes all containers and volumes. Equivalent: docker rm $(docker ps -a -q) & docker rmi $(docker images -q).\r")
+		fmt.Println("  nuke - Removes everything. Alias to cleanup and docker system prune --volumes -f. \r")
 	}
 	flag.Usage = Usage
 
