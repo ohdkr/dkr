@@ -22,6 +22,7 @@ func main() {
 		flag.PrintDefaults()
 		// Subcommands
 		fmt.Println("aliases:")
+		fmt.Println("  follow - Follows all running container logs")
 		fmt.Println("  sh CONTAINER_NAME - Jumps into running container sh.")
 		fmt.Println("  bash CONTAINER_NAME - Jumps into running container bash.")
 		fmt.Println("  killall - Kills all active container. Equivalent: docker kill $(docker ps -q).")

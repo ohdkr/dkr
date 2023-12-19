@@ -6,7 +6,7 @@ import (
 	"os"
 )
 
-var version = "0.2.0"
+var version = "0.3.0"
 
 func Route(showVersion bool, osArgs []string) {
 	if showVersion {

@@ -64,6 +64,13 @@ func handleNuke() int {
 	return 0
 }
 
+func handleFollow() int {
+	ids := string(ReturnCommand("docker", []string{"ps", "-q"}))
+	// Exec a command that will list all running containers and then follow their logs.
+	ExecCommand("docker", []string{"logs", "-f", strings.Trim(ids, "\n")})
+	return 0
+}
+
 func DetectAndCallAliases(osArgs []string) (bool, int) {
 	// No arguments after `dkr` or `dkr c` called
 	if len(osArgs) == 1 ||
@@ -91,6 +98,8 @@ func DetectAndCallAliases(osArgs []string) (bool, int) {
 		return true, handleCleanup()
 	case "nuke":
 		return true, handleNuke()
+	case "follow":
+		return true, handleFollow()
 	}
 
 	return false, 0
