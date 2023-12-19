@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased](https://github.com/ohdkr/dkr)
 
+
+## [v0.3.0](https://github.com/ohdkr/dkr/releases/tag/v0.3.0)
+## Added
+- `dkr follow` - follows logs of all running containers
+
 ## [v0.2.0](https://github.com/ohdkr/dkr/releases/tag/v0.2.0)
 ## Added
 - `dkr cleanup` [#4](https://github.com/ohdkr/dkr/pull/4).
